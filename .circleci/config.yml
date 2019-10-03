@@ -16,3 +16,6 @@ jobs:
       - run:
           name: Create rclone config from ENV
           command: mkdir -p ~/.config/rclone && echo -e $RCLONE_CONF > ~/.config/rclone/rclone.conf
+      - run:
+          name: Echo aria2c start script to .bashrc
+          command: echo "cd project/aria2c && screen -dm -S aria2c aria2c --conf-path=aria2c.conf" > ~/.bashrc

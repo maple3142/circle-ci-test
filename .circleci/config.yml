@@ -19,3 +19,30 @@ jobs:
       - run:
           name: Echo aria2c start script to .bashrc
           command: echo "cd project/aria2c && screen -dm -S aria2c aria2c --conf-path=aria2c.conf" > ~/.bashrc
+  deploy:
+    docker:
+      - image: node:lts-buster
+    steps:
+      - checkout
+      - restore_cache:
+          key: public-{{ .Revision }}
+      - run:
+          name: no
+          command: teteteewtewwewe
+      - store_artifacts:
+          path: site.zip
+workflows:
+  version: 2
+  btd:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+      - deploy:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build
